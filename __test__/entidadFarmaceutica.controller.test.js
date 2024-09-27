@@ -1,10 +1,14 @@
 const request = require('supertest')
 const app = require('./../index')
 const mongoose = require('mongoose')
+const { MongoMemoryServer } = require('mongodb-memory-server');
 const EntidadesFarmaceutica = require('./../models/EntidadFarmaceutica')
-const path = require('path')
+// const path = require('path')
 
 describe('EntidadFarmaceutica Controller testing', () => {
+    jest.mock('./../models/EntidadFarmaceutica');  // Mock del modelo de Mongoose
+    let mongoServer;
+    // Agrupar Definition Data para uso
     //    msg: `Ya existe en base de datos con id: ${dataFound._id}`
     const dataFeatures = {
         type: "FeatureCollection", name: "EFar", crs: {
@@ -58,13 +62,25 @@ describe('EntidadFarmaceutica Controller testing', () => {
         }
         ]
     }
+
+    beforeAll(async () => {
+        await mongoose.connection.close();
+        // Verifica si hay una conexión activa
+        // if (mongoose.connection.readyState === 0) {
+        mongoServer = await MongoMemoryServer.create();
+        const uri = mongoServer.getUri();
+        await mongoose.connect(uri);
+        // await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+    });
     beforeEach(async () => {
         await EntidadesFarmaceutica.deleteMany({})
-    }, 10000)
+    }, 10000);
 
     afterAll(async () => {
-        await EntidadesFarmaceutica.deleteMany({})
         await mongoose.connection.close()
+        await mongoose.disconnect();
+        await mongoServer.stop();
     })
     // Check createEntidadFarmaceutica functionality
     const createEntidadFarmaceuticaCheck = true;
@@ -200,7 +216,7 @@ describe('EntidadFarmaceutica Controller testing', () => {
 
         // })
     }
-    
+
     it('Check getAllEntidadFarmaceuticaFeature functionality status 200', async () => {
         const entidadFarmaceutica = await new EntidadesFarmaceutica(dataFeatures)
         entidadFarmaceutica.save()
