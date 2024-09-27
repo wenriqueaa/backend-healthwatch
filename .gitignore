@@ -1,0 +1,4 @@
+/node_modules
+.env
+/bit-healting-watch-data
+/coverage
