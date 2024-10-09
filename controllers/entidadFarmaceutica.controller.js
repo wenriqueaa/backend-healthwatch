@@ -47,9 +47,9 @@ const createEntidadFarmaceutica = async (req, res) => {
     } catch (error) {
         console.error(`Por favor contactarse con soporte`, error)
         // return res.status(500).json[{
-        //     ok: false,
-        //     msg: `Por favor contactarse con soporte ${'\r\n' + error}`
-        // }]
+        //      ok: false,
+        //      msg: `Por favor contactarse con soporte`
+        //  }]
     }
 }
 
@@ -88,11 +88,11 @@ const updateEntidadFarmaceutica = async (req, res) => {
             })
         }
     } catch (error) {
-        console.error(`Please contact to support`, error)
+        console.error(`Por favor contactarse con soporte`, error)
         // return res.status(500).json[{
-        //     ok: false,
-        //     msg: `Por favor contactarse con soporte ${'\r\n' + error}`
-        // }]
+        //      ok: false,
+        //      msg: `Por favor contactarse con soporte`
+        //  }]
     }
 }
 
@@ -108,11 +108,11 @@ const getAllEntidadFarmaceuticaFeature = async (req, res) => {
             data: data
         })
     } catch (error) {
-        console.error(`getAllEntidadFarmaceuticaFeature, Error getting EntidadesFarmaceutica.Features, please contact to support`, error)
-        // return res.status(500).json({
-        //     ok: false,
-        //     msg: `getAllEntidadFarmaceuticaFeature, Error en EntidadesFarmaceutica.Features, por favor contactar a soporte`
-        // })
+        console.error(`Por favor contactarse con soporte`, error)
+        // return res.status(500).json[{
+        //      ok: false,
+        //      msg: `Por favor contactarse con soporte`
+        //  }]
     }
 }
 
